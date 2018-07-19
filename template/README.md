@@ -14,19 +14,29 @@ $ go get -u github.com/golangci/golangci-lint/cmd/golangci-lint
 $ dep ensure
 ```
 
+Then generate the mock to pass tests:
+
+```
+$ make mock
+```
+
 To enable the pre-commit hook:
 
 ```
 $ git config core.hooksPath .githooks
 ```
 
-## Mocks Generation
+## Configuration
 
-```
-$ make mock
-```
+## Make Targets
 
-## CI and Notifications
+The version is either `0.1.0` if no tag has ever been defined or the latest
+tag defined. The build number is the SHA1 of the latest commit.
 
-Please check out the [documentation about Drone](https://docs.lelab.io/services/tech/drone/)
-to see how to activate and add Slack notifications to this repository
+- **make**: Builds and injects version/build in binary
+- **make init**: Sets the pre-commit hook in the repository
+- **make docker**: Build docker image and tag it with both `latest` and version
+- **make latest**: Build docker image and tag it only with `latest`
+- **make test**: Executes the test suite
+- **make mock**: Generate the necessary mocks
+- **make clean**: Removes the built binary if present
